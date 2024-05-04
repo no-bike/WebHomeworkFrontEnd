@@ -13,7 +13,7 @@ export default function Login() {
 
     const api = '后端api'
 
-    const response = await fetch('后端api', {  // Replace '后端api' with the actual backend API
+    const response = await fetch(api, {  // Replace '后端api' with the actual backend API
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

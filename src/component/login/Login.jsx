@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import welcome from '../../picture/welcome.png';
 import student from '../../picture/student.png';
@@ -6,6 +7,7 @@ import student from '../../picture/student.png';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function Login() {
     const data = await response.json();
 
     if(data.success) {
-      window.location.href = '跳转页面';  // Redirect to dashboard if login is successful
+      navigate('/home');  // Redirect to dashboard if login is successful
     }else {
       alert('登录失败');  // Alert the user if login fails
     }

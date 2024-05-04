@@ -1,0 +1,72 @@
+/* Login.css */
+/* Login.css */
+
+.full-screen-background { 
+    background-size: cover;  
+    background-position: center; 
+    height: 100vh;  
+}
+.login-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.login-logo {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #6c63f0;
+}
+
+.login-logo img{
+    width: 300px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.login-logo img:hover {
+    transform: scale(1.1);
+}
+
+.login-form {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.login-form .login-name, .login-form .login-passwd {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.login-form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-form button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #0056b3;
+}
+
+.labelText {
+    display: block; /* 使标签元素独占一行 */
+    margin-bottom: 2px; /* 添加一些底部间距 */
+    text-align: left;
+    font-size: 13px;
+    font-weight: bold;
+  }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
+import welcome from '../../picture/welcome.png';
+import student from '../../picture/student.png';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -26,17 +28,21 @@ export default function Login() {
   };
     return (
         <>
+        
         <div className="login-part">
             <div className="login-logo">
-                <h1>Login</h1>
+              <img src={welcome} alt='欢迎使用'/><br/>
+              <img src={student} alt='学生管理系统' />
             </div>
             <div className="login-form">
                 <div className="login-name">
+                  <label className='labelText'>Username:</label>
                   <input type="text" 
                           placeholder="Username"
                           onChange={e => setUsername(e.target.value)} />
                 </div>
                 <div className="login-passwd">
+                  <label className='labelText'>Password:</label>
                   <input type="password" 
                         placeholder="Password"
                         onChange={e => setPassword(e.target.value)} />

@@ -14,7 +14,7 @@ function Head({ username }) {
       <img src="/picture/student.png" alt="Logo" style={{ height: '30px' }} />
       </div>
       <div className='header-right'>
-        <span>{username}</span>
+        <span>您好！{username}</span>
         <button 
             onClick={handleLogout}
             className='button-logout'

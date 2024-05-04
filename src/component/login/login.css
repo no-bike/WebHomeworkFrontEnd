@@ -1,17 +1,14 @@
 /* Login.css */
 /* Login.css */
 
-.full-screen-background { 
-    background-size: cover;  
-    background-position: center; 
-    height: 100vh;  
-}
 .login-part {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-image: url('../../../public/picture/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-logo {
@@ -50,7 +47,7 @@
     border-radius: 5px;
 }
 
-.login-form button {
+.login-icon button {
     padding: 10px;
     background-color: #007BFF;
     color: #fff;
@@ -70,3 +67,20 @@
     font-size: 13px;
     font-weight: bold;
   }
+
+  button.active {
+    background-color: #007BFF;
+    color: white;
+  }
+  .login-mode{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+.login-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

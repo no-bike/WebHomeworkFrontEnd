@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import welcome from '../../picture/welcome.png';
-import student from '../../picture/student.png';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const[mode, setMode] = useState('student');  // Add this line to the existing code
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const api = '后端api'
 
     const response = await fetch('后端api', {  // Replace '后端api' with the actual backend API
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, mode}),
     });
 
     const data = await response.json();
@@ -31,20 +32,33 @@ export default function Login() {
     return (
         <>
         
-        <div className="login-part">
+        <div className="login-part" >
             <div className="login-logo">
-              <img src={welcome} alt='欢迎使用'/><br/>
-              <img src={student} alt='学生管理系统' />
+              <img src='/picture/welcome.png' alt='欢迎使用'/><br/>
+              <img src='/picture/student.png' alt='学生管理系统' />
             </div>
             <div className="login-form">
+                <div className='login-mode'>
+                  <label className='labelText'>您是:</label>
+                  <button 
+                    onClick={() => setMode('student')}
+                    className={mode === 'student' ? 'active' : ''}>
+                    学生
+                    </button>
+                  <button 
+                    onClick={() => setMode('teacher')}
+                    className={mode === 'teacher' ? 'active' : ''}>
+                    教师
+                    </button>
+                </div>
                 <div className="login-name">
-                  <label className='labelText'>Username:</label>
+                  <label className='labelText'>用户名:</label>
                   <input type="text" 
                           placeholder="Username"
                           onChange={e => setUsername(e.target.value)} />
                 </div>
                 <div className="login-passwd">
-                  <label className='labelText'>Password:</label>
+                  <label className='labelText'>密码:</label>
                   <input type="password" 
                         placeholder="Password"
                         onChange={e => setPassword(e.target.value)} />

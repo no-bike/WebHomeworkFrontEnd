@@ -1,3 +1,9 @@
+# A Simplified Way to Build
+
+Just clone this repository and then run the config.sh or config.cmd
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

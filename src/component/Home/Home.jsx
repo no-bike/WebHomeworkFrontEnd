@@ -11,11 +11,13 @@ export default function Home() {
             <div className="home-title">
                 <Head username={"这里需要接收后端传回的用户名"} />
             </div>
+            <div className="home-content">
             <div className="home-sidebar">
                 <LeftSideRouter />
             </div>
             <div className="home-content">
                 <Outlet />
+            </div>
             </div>
         </div>
     )

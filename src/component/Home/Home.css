@@ -1,0 +1,28 @@
+.home-title {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.home-sidebar {
+    flex: 1 !important;
+    overflow: auto !important;
+    float: left;
+}
+
+.home-content {
+    flex: 3 !important;
+    overflow: auto !important;
+}
+
+/* Assuming these divs are wrapped in a parent div */
+.parent-div {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.home{
+    display: flex;
+    flex-direction: column;
+}

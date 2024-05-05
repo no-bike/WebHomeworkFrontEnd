@@ -1,0 +1,17 @@
+.left-side {
+    padding: 20px;
+    background-color: #f0f0f0;
+    float: left;
+}
+
+.sidebar-link {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar-link:hover {
+    color: #007bff;
+}

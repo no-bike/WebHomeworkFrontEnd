@@ -24,7 +24,7 @@ export default function Login() {
     const data = await response.json();
 
     if(data.success) {
-      navigate('/home');  // Redirect to dashboard if login is successful
+      navigate('/home',{replace:true});  // Redirect to dashboard if login is successful
     }else {
       alert('登录失败');  // Alert the user if login fails
     }

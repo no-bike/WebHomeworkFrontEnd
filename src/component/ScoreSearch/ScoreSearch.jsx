@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './ScoreSearch.css';
 
 export default function ScoreView() {
     const [data, setData] = useState([]);
@@ -94,8 +95,7 @@ export default function ScoreView() {
                 <Button variant="primary" onClick={() => setShowAddExam(true)}>
                     添加考试
                 </Button>
-
-
+                <div className='score-view'>
                 <table>
                     <thead>
                         <tr>
@@ -106,6 +106,7 @@ export default function ScoreView() {
                             <th>英语</th>
                             <th>总分</th>
                             <th>排名</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,6 +127,7 @@ export default function ScoreView() {
                         ))}
                     </tbody>
                 </table>
+                </div>
             </div>
             <Modal show={showAddForm} onHide={() => setShowAddForm(false)}>
                 <Modal.Header closeButton>

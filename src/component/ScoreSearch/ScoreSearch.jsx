@@ -13,6 +13,9 @@ export default function ScoreView() {
     const [newScore, setNewScore] = useState({ name: '', chinese: '', math: '', english: '', sum: '', rank: '' });
     const [showAddExam, setShowAddExam] = useState(false);
     const [newExam, setNewExam] = useState('');
+    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [updatedScore, setUpdatedScore] = useState({ name: '', chinese: '', math: '', english: '', sum: '', rank: '' });
+
     const api = '后端api'
 
     useEffect(() => {
@@ -40,10 +43,12 @@ export default function ScoreView() {
 
     const handleUpdate = async (sno) => {
         // 发送修改请求
-        await axios.put(api + `/${sno}`);
+        await axios.put(api + `/${sno}`, updatedScore);
         // 重新获取数据
         const result = await axios(api + `?option=${selectedOption}`);
         setData(result.data);
+        // 关闭修改窗口
+        setShowUpdateForm(false);
     };
 
     const handleDelete = async (sno) => {
@@ -76,14 +81,52 @@ export default function ScoreView() {
     };
 
     return (
-        <div className="score-view">
-            <label>考试：</label>
-            <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
-                {options.map((option, index) => (
-                    <option key={index} value={option.value}>{option.label}</option>
-                ))}
-            </select>
-            <Button variant="primary" onClick={() => setShowAddForm(true)}>添加学生成绩</Button>
+        <>
+            <div className="score-view">
+                <label>考试：</label>
+                <select value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
+                    {options.map((option, index) => (
+                        <option key={index} value={option.value}>{option.label}</option>
+                    ))}
+                </select>
+                <Button variant="primary" onClick={() => setShowAddForm(true)}>添加学生成绩</Button>
+
+                <Button variant="primary" onClick={() => setShowAddExam(true)}>
+                    添加考试
+                </Button>
+
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>语文</th>
+                            <th>数学</th>
+                            <th>英语</th>
+                            <th>总分</th>
+                            <th>排名</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((score) => (
+                            <tr key={score.sno}>
+                                <td>{score.sno}</td>
+                                <td>{score.name}</td>
+                                <td>{score.chinese}</td>
+                                <td>{score.math}</td>
+                                <td>{score.english}</td>
+                                <td>{score.sum}</td>
+                                <td>{score.rank}</td>
+                                <td>
+                                    <button onClick={() => { setShowUpdateForm(true); setUpdatedScore(score); }}>修改</button>
+                                    <button onClick={() => handleDelete(score.sno)}>删除</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <Modal show={showAddForm} onHide={() => setShowAddForm(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>添加学生成绩</Modal.Title>
@@ -115,9 +158,7 @@ export default function ScoreView() {
                     </Form>
                 </Modal.Body>
             </Modal>
-            <Button variant="primary" onClick={() => setShowAddExam(true)}>
-                添加考试
-            </Button>
+
 
             <Modal show={showAddExam} onHide={() => setShowAddExam(false)}>
                 <Modal.Header closeButton>
@@ -134,35 +175,33 @@ export default function ScoreView() {
                     </Form>
                 </Modal.Body>
             </Modal>
-            <table>
-                <thead>
-                    <tr>
-                        <th>学号</th>
-                        <th>姓名</th>
-                        <th>语文</th>
-                        <th>数学</th>
-                        <th>英语</th>
-                        <th>总分</th>
-                        <th>排名</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((sno, name, chinese, math, english, sum, rank) => (
-                        <tr key={sno}>
-                            <td>{name}</td>
-                            <td>{chinese}</td>
-                            <td>{math}</td>
-                            <td>{english}</td>
-                            <td>{sum}</td>
-                            <td>{rank}</td>
-                            <td>
-                                <button onClick={() => handleUpdate(sno)}>修改</button>
-                                <button onClick={() => handleDelete(sno)}>删除</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+            <Modal show={showUpdateForm} onHide={() => setShowUpdateForm(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>修改学生成绩</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={() => handleUpdate(updatedScore.sno)}>
+                        <Form.Group controlId="formName">
+                            <Form.Label>姓名</Form.Label>
+                            <Form.Control type="text" value={updatedScore.name} onChange={e => setUpdatedScore({ ...updatedScore, name: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group controlId="formChinese">
+                            <Form.Label>语文成绩</Form.Label>
+                            <Form.Control type="number" value={updatedScore.chinese} onChange={e => setUpdatedScore({ ...updatedScore, chinese: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group controlId="formMath">
+                            <Form.Label>数学成绩</Form.Label>
+                            <Form.Control type="number" value={updatedScore.math} onChange={e => setUpdatedScore({ ...updatedScore, math: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group controlId="formEnglish">
+                            <Form.Label>英语成绩</Form.Label>
+                            <Form.Control type="number" value={updatedScore.english} onChange={e => setUpdatedScore({ ...updatedScore, english: e.target.value })} />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">提交</Button>
+                        <Button variant="secondary" onClick={() => setShowUpdateForm(false)}>取消</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </>
     );
 }

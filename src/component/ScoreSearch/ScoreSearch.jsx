@@ -10,17 +10,17 @@ export default function ScoreView() {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
-    const [newScore, setNewScore] = useState({ name: '', chinese: '', math: '', english: '', sum: '', rank: '' });
+    const [newScore, setNewScore] = useState({ name: '', chinese: '', math: '', english: ''});
     const [showAddExam, setShowAddExam] = useState(false);
     const [newExam, setNewExam] = useState('');
     const [showUpdateForm, setShowUpdateForm] = useState(false);
-    const [updatedScore, setUpdatedScore] = useState({ name: '', chinese: '', math: '', english: '', sum: '', rank: '' });
+    const [updatedScore, setUpdatedScore] = useState({ name: '', chinese: '', math: '', english: '' });
 
     const api = '后端api'
 
     useEffect(() => {
         const fetchOptions = async () => {
-            const result = await axios(api);
+            const result = await axios(api+ '?params=exam');
             setOptions(result.data);
             if (result.data.length > 0) {
                 setSelectedOption(result.data[0].value);
@@ -43,7 +43,7 @@ export default function ScoreView() {
 
     const handleUpdate = async (sno) => {
         // 发送修改请求
-        await axios.put(api + `/${sno}`, updatedScore);
+        await axios.put(api + `/${sno}`, { ...updatedScore, option: selectedOption });
         // 重新获取数据
         const result = await axios(api + `?option=${selectedOption}`);
         setData(result.data);
@@ -53,7 +53,7 @@ export default function ScoreView() {
 
     const handleDelete = async (sno) => {
         // 发送删除请求
-        await axios.delete(api + `/${sno}`);
+        await axios.delete(api + `/${sno}?option=${selectedOption}`);
         // 重新获取数据
         const result = await axios(api + `?option=${selectedOption}`);
         setData(result.data);
@@ -61,7 +61,7 @@ export default function ScoreView() {
 
     const handleAdd = async () => {
         // 发送添加请求
-        await axios.post(api, newScore);
+        await axios.post(api, { ...newScore, option: selectedOption });
         // 重新获取数据
         const result = await axios(api + `?option=${selectedOption}`);
         setData(result.data);

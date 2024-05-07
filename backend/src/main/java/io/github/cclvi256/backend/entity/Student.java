@@ -10,9 +10,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
+  private User base;
   private String id;
   private String name;
-  private char gender;
-  private Date birthday;
-  private int age;
 }

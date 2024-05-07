@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/students
+    username: postgres
+    password: 123456
+server:
+  port: 8080
+  servlet:
+    context-path: /backend

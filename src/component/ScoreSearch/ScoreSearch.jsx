@@ -11,6 +11,8 @@ export default function ScoreView() {
     const [selectedOption, setSelectedOption] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
     const [newScore, setNewScore] = useState({ name: '', chinese: '', math: '', english: '', sum: '', rank: '' });
+    const [showAddExam, setShowAddExam] = useState(false);
+    const [newExam, setNewExam] = useState('');
     const api = '后端api'
 
     useEffect(() => {
@@ -62,6 +64,17 @@ export default function ScoreView() {
         setShowAddForm(false);
     };
 
+    const handleAddExam = async (event) => {
+        event.preventDefault();
+        // 发送添加考试的请求
+        await axios.post(api, { exam: newExam });
+        // 重新获取下拉表格的数据
+        const result = await axios(api);
+        setOptions(result.data);
+        // 关闭添加考试的模态对话框
+        setShowAddExam(false);
+    };
+
     return (
         <div className="score-view">
             <label>考试：</label>
@@ -99,6 +112,25 @@ export default function ScoreView() {
                         </Form.Group>
                         <Button variant="primary" type="submit">提交</Button>
                         <Button variant="secondary" onClick={() => setShowAddForm(false)}>取消</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+            <Button variant="primary" onClick={() => setShowAddExam(true)}>
+                添加考试
+            </Button>
+
+            <Modal show={showAddExam} onHide={() => setShowAddExam(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>添加考试</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleAddExam}>
+                        <Form.Group controlId="formExam">
+                            <Form.Label>考试名称</Form.Label>
+                            <Form.Control type="text" value={newExam} onChange={e => setNewExam(e.target.value)} />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">提交</Button>
+                        <Button variant="secondary" onClick={() => setShowAddExam(false)}>取消</Button>
                     </Form>
                 </Modal.Body>
             </Modal>

@@ -16,6 +16,7 @@ export default function Home() {
                 <LeftSideRouter />
             </div>
             <div className="home-content">
+                
                 <Outlet />
             </div>
             </div>

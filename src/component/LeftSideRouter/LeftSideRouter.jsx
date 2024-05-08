@@ -8,7 +8,7 @@ export default function LeftSideRouter() {
     return(
         <div className="left-side">
             <Link className="sidebar-link" to="/home/scoresearch">成绩查询</Link>
-            <Link className="sidebar-link" to="/home/scoreview">成绩查看</Link>
+            <Link className="sidebar-link" to="/home/scoreview">关于我们</Link>
         </div>
     );
 

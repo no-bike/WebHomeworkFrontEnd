@@ -15,3 +15,15 @@
 .sidebar-link:hover {
     color: #007bff;
 }
+
+.active-link {
+    display: block;
+    color: #ffffff; /* 文字颜色 */
+    background-color: gray; /* 背景颜色 */
+    font-size: 1.2em; /* 字体大小 */ /* 字体粗细 */
+    padding-right: auto; /* 内边距 */
+    padding-left: auto; /* 内边距 */
+    border-radius: 5px; /* 边框圆角 */
+    text-decoration: none; /* 文本装饰 */
+    width: 100%; /* 宽度 */
+}

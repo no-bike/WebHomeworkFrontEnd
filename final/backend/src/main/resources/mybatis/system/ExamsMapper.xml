@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.mapper.ExamsMapper">
+
+    <resultMap type="Exams" id="ExamsResult">
+        <result property="id"    column="id"    />
+        <result property="english"    column="english"    />
+        <result property="language"    column="language"    />
+        <result property="politics"    column="politics"    />
+        <result property="userId"    column="user_id"    />
+        <result property="date"    column="date"    />
+        <result property="studentId"    column="student_id"    />
+    </resultMap>
+
+    <sql id="selectExamsVo">
+        select id, english, language, politics, su.user_id, date, student_id from exams ex left join sys_user su on ex.user_id = su.user_id
+    </sql>
+
+    <select id="selectExamsList" parameterType="Exams" resultMap="ExamsResult">
+        <include refid="selectExamsVo"/>
+        <where>
+            <if test="english != null  and english != ''"> and english = #{english}</if>
+            <if test="language != null  and language != ''"> and language = #{language}</if>
+            <if test="politics != null  and politics != ''"> and politics = #{politics}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="studentId != null  and studentId != ''"> and student_id = #{studentId}</if>
+            ${params.dataScope}
+        </where>
+
+    </select>
+
+    <select id="selectExamsById" parameterType="Long" resultMap="ExamsResult">
+        <include refid="selectExamsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertExams" parameterType="Exams" useGeneratedKeys="true" keyProperty="id">
+        insert into exams
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="english != null">english,</if>
+            <if test="language != null">language,</if>
+            <if test="politics != null">politics,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="date != null">date,</if>
+            <if test="studentId != null">student_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="english != null">#{english},</if>
+            <if test="language != null">#{language},</if>
+            <if test="politics != null">#{politics},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="date != null">#{date},</if>
+            <if test="studentId != null">#{studentId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateExams" parameterType="Exams">
+        update exams
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="english != null">english = #{english},</if>
+            <if test="language != null">language = #{language},</if>
+            <if test="politics != null">politics = #{politics},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="studentId != null">student_id = #{studentId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteExamsById" parameterType="Long">
+        delete from exams where id = #{id}
+    </delete>
+
+    <delete id="deleteExamsByIds" parameterType="String">
+        delete from exams where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
